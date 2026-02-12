@@ -3,3 +3,11 @@ numpy
 opencv-python
 Pillow
 rembg
+
+gunicorn
+Flask
+rembg[cpu]
+opencv-python-headless
+numpy
+Pillow
+
