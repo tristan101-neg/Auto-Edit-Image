@@ -127,23 +127,37 @@ def upload_folder():
     for file in files:
         original_name = file.filename  # keep original filename
         try:
-            pil_img = Image.open(file.stream)
+            # Open and ensure RGBA
+            pil_img = Image.open(file.stream).convert("RGBA")
+            
+            # Resize very large images first (max 2000x2000)
+            pil_img.thumbnail((2000, 2000))
+
+            # Process image
             pil_img = crop_from_nose_centered(pil_img)
             pil_img = remove_bg_white(pil_img)
             pil_img = enhance_image(pil_img)
             pil_img = resize_to_2x2(pil_img)
 
             # Save processed image with original filename
-            safe_name = original_name.replace("/", "_").replace("\\", "_")  # basic safety
+            safe_name = original_name.replace("/", "_").replace("\\", "_")
             output_path = os.path.join(app.config["PROCESSED_FOLDER"], safe_name)
             pil_img.save(output_path)
 
             results.append({"original": original_name, "processed": safe_name, "success": True})
-            processed_map[original_name] = safe_name  # map original -> saved file
+            processed_map[original_name] = safe_name
+
         except Exception as e:
-            results.append({"original": original_name, "processed": None, "success": False, "error": str(e)})
+            # Log error but continue
+            results.append({
+                "original": original_name,
+                "processed": None,
+                "success": False,
+                "error": str(e)
+            })
 
     return jsonify({"results": results})
+
 
 @app.route("/processed/<filename>")
 def download_file(filename):
