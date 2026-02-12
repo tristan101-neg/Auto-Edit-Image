@@ -1,0 +1,52 @@
+body {
+  background-color: #f0f2f5;
+}
+
+.container {
+  padding-top: 50px;
+}
+
+.file-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.file-name {
+  flex: 1;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progress-container {
+  flex: 2;
+  margin: 0 15px;
+}
+
+.progress {
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #4ade80, #16a34a);
+  text-align: center;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+.file-status {
+  min-width: 80px;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.img-holder {
+  background-color: #f0f2f5;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
